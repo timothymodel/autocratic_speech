@@ -1,1 +1,5 @@
-# autocratic_speech
+# Motivation
+
+Political analysts and media outlets like the [New Yorker](https://www.newyorker.com/culture/culture-desk/a-scholar-of-fascism-sees-a-lot-thats-familiar-with-trump), [Rolling Stone](https://www.rollingstone.com/politics/politics-news/trump-authoritarian-mueller-813585/), [Forbes](https://www.forbes.com/sites/brettedkins/2016/07/22/media-confounded-by-donald-trumps-authoritarian-speech/#1eff64d567dd), and [USA Today](https://www.usatoday.com/story/news/politics/2017/02/17/trump-rhetoric-techniques/97463770/) describe Donald Trump’s language as resembling that of an autocrat. These writers worry that the language of authoritarianism could push American political institutions into mirroring those in authoritarian countries – unaccountable, unresponsive, unrepresentative, and corrupt. 
+
+Does Trump, indeed, sound like an autocrat? The included analysis compares Trump's State of the Union (SOTU) speeches to Vladimir Putin's annual Addresses to the Federal Assembly, Russia's SOTU equivalent. 
