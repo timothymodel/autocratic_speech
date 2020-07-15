@@ -1,0 +1,136 @@
+---
+title: "Public Speech AI"
+author: "Timothy A. Model"
+institute: "Miami University"
+date: "7/15/2020"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      ratio: '16:9'
+---
+
+```{r setup, include=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(tidyr)
+library(quanteda)
+library(pals)
+library(tidytext)
+library(xaringanthemer)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+style_mono_accent(
+  base_color = "#57669E",
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Fira Mono"),
+  text_font_size = "1.5rem",
+  text_slide_number_font_size = "0.5em",
+  header_h2_font_size = "1.75rem",
+  extra_css = list("caption" = list("font-size" = "150%"))
+)
+```
+
+```{css, echo=FALSE}
+@media print {
+  .has-continuation {
+    display: block;
+  }
+}
+```
+
+## Public speaking is challenging! Public Speech AI can help!
+
+Preparation is the key to speechwriting success.
+
+Public Speech AI: an indispensable tool in the speechwriting toolkit. 
+
+Leveraging unstructured textual speech data to inform speech writers and public speakers about:
+
+1. Thematic clarity
+2. Persuasiveness
+3. Audience
+4. Alliteration
+5. Sentence variation
+6. Word usage
+
+---
+
+## Thematic Clarity in Donald Trump's State of the Union Addresses
+
+```{r trumpnet, fig.align="center", warning=FALSE, comment=FALSE, echo=FALSE, message=FALSE, dev='svg', fig.height=5.5}
+trump <- readtext::readtext("Analysis/TrumpVsPutin/trump_sotu/*.txt")
+
+trump_corpus <- corpus(trump$text)
+
+trumptoks <- trump_corpus %>%
+  tokens(remove_punct = TRUE,
+         remove_numbers = TRUE,
+         remove_symbols = TRUE) %>%
+  tokens_tolower() %>%
+  tokens_replace(c("americans", "america's"), 
+                 c("american", "america")) %>% 
+  tokens_remove(pattern = c(stopwords("english"),
+                "thank", "you", "tonight", "applause",
+                "can", "must", "much", "many", "united",
+                "states", "two", "just",  "year", "like",
+                "also", "finally", "come", "years", "ago",
+                "want", "done", "now", "since", "get", 
+                "every", "always", "ever", "time", "last",
+                "know"),
+                padding = FALSE)
+
+trumpfcmat <- fcm(trumptoks, context = "window", tri = FALSE)
+trumpfeat <- names(topfeatures(trumpfcmat, 40))
+fcm_select(trumpfcmat, pattern = trumpfeat) %>%
+  textplot_network(min_freq = 0.25,
+                   edge_alpha = .6,
+                   edge_color = "#f4a582",
+                   vertex_size = 1,
+                   vertex_labelsize = 5
+                   )
+```
+
+---
+
+## Thematic Clarity in Vladimir Putin's Addresses to the Federal Assembly
+
+```{r putinnet, fig.align="center", warning=FALSE, comment=FALSE, echo=FALSE, message=FALSE, dev='svg', fig.height=5.5}
+putin <- readtext::readtext("Analysis/TrumpVsPutin/putin_address/*.txt")
+
+putin_corpus <- corpus(putin$text)
+
+putin <- readtext::readtext("Analysis/TrumpVsPutin/putin_address/*.txt")
+putintoks <- putin_corpus %>%
+  tokens(remove_punct = TRUE,
+         remove_numbers = TRUE,
+         remove_symbols = TRUE) %>%
+  tokens_tolower() %>%
+  tokens_replace(c("russia's", "economic"), 
+                 c("russia", "economy")) %>% 
+  tokens_remove(pattern = c(stopwords("english"),
+                            "make", "next", "must", "time",
+                            "even", "can", "know", "now",
+                            "also", "every", "need", 
+                            "including", "like", 
+                            "today", "want",
+                            "important", "say", "well",
+                            "years", "just", "year",
+                            "let", "many", "necessary",
+                            "see", "already",
+                            "use", "take", "said"),
+                padding = FALSE)
+
+putinfcmat <- fcm(putintoks, context = "window", tri = FALSE)
+putinfeat <- names(topfeatures(putinfcmat, 40))
+fcm_select(putinfcmat, pattern = putinfeat) %>%
+  textplot_network(min_freq = 0.25,
+                   edge_alpha = .6,
+                   edge_color = "#a6cee3",
+                   vertex_size = 1,
+                   vertex_labelsize = 5
+  )
+```
+
